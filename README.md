@@ -16,4 +16,4 @@ The optimal results under the 5 different solvers are compared below. Because th
 *Fig. 2 - A comparison of the optimal path found by the different solvers. Each solver finds an almost identical path through the space*
 
 For deeper intuition in the solution process, the intermediate solutions of the unconstrained, quasi-Newton solver are plotted below. As the solver marches towards the optimum, the line shifts to find a flat path that attempts to avoid sharp changes in height. ![intermediate_pts](https://github.com/JMocklerUMD/ENAE681-Final-Project/assets/150191399/6a2f790e-951f-46a6-8ca2-f12ac5e7d2a3)
-*Fig. 2 - A few intermediate solutions from an unconstrained, quasi-Newton solver as the optimizer approaches the minimum-time path*
+*Fig. 3 - A few intermediate solutions from an unconstrained, quasi-Newton solver as the optimizer approaches the minimum-time path*
