@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<!-- saved from url=(0111)https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/ -->
+<html lang="en-us" class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">svg:not(:root).svg-inline--fa{overflow:visible}.svg-inline--fa{display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em}.svg-inline--fa.fa-lg{vertical-align:-.225em}.svg-inline--fa.fa-w-1{width:.0625em}.svg-inline--fa.fa-w-2{width:.125em}.svg-inline--fa.fa-w-3{width:.1875em}.svg-inline--fa.fa-w-4{width:.25em}.svg-inline--fa.fa-w-5{width:.3125em}.svg-inline--fa.fa-w-6{width:.375em}.svg-inline--fa.fa-w-7{width:.4375em}.svg-inline--fa.fa-w-8{width:.5em}.svg-inline--fa.fa-w-9{width:.5625em}.svg-inline--fa.fa-w-10{width:.625em}.svg-inline--fa.fa-w-11{width:.6875em}.svg-inline--fa.fa-w-12{width:.75em}.svg-inline--fa.fa-w-13{width:.8125em}.svg-inline--fa.fa-w-14{width:.875em}.svg-inline--fa.fa-w-15{width:.9375em}.svg-inline--fa.fa-w-16{width:1em}.svg-inline--fa.fa-w-17{width:1.0625em}.svg-inline--fa.fa-w-18{width:1.125em}.svg-inline--fa.fa-w-19{width:1.1875em}.svg-inline--fa.fa-w-20{width:1.25em}.svg-inline--fa.fa-pull-left{margin-right:.3em;width:auto}.svg-inline--fa.fa-pull-right{margin-left:.3em;width:auto}.svg-inline--fa.fa-border{height:1.5em}.svg-inline--fa.fa-li{width:2em}.svg-inline--fa.fa-fw{width:1.25em}.fa-layers svg.svg-inline--fa{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.fa-layers{display:inline-block;height:1em;position:relative;text-align:center;vertical-align:-.125em;width:1em}.fa-layers svg.svg-inline--fa{-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter,.fa-layers-text{display:inline-block;position:absolute;text-align:center}.fa-layers-text{left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter{background-color:#ff253a;border-radius:1em;-webkit-box-sizing:border-box;box-sizing:border-box;color:#fff;height:1.5em;line-height:1;max-width:5em;min-width:1.5em;overflow:hidden;padding:.25em;right:0;text-overflow:ellipsis;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-bottom-right{bottom:0;right:0;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom right;transform-origin:bottom right}.fa-layers-bottom-left{bottom:0;left:0;right:auto;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom left;transform-origin:bottom left}.fa-layers-top-right{right:0;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-top-left{left:0;right:auto;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top left;transform-origin:top left}.fa-lg{font-size:1.3333333333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul>li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:solid .08em #eee;border-radius:.1em;padding:.2em .25em .15em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scale(-1,1);transform:scale(-1,1)}.fa-flip-vertical{-webkit-transform:scale(1,-1);transform:scale(1,-1)}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1,-1);transform:scale(-1,-1)}:root .fa-flip-both,:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{-webkit-filter:none;filter:none}.fa-stack{display:inline-block;height:2em;position:relative;width:2.5em}.fa-stack-1x,.fa-stack-2x{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.svg-inline--fa.fa-stack-1x{height:1em;width:1.25em}.svg-inline--fa.fa-stack-2x{height:2em;width:2.5em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}.svg-inline--fa .fa-primary{fill:var(--fa-primary-color,currentColor);opacity:1;opacity:var(--fa-primary-opacity,1)}.svg-inline--fa .fa-secondary{fill:var(--fa-secondary-color,currentColor);opacity:.4;opacity:var(--fa-secondary-opacity,.4)}.svg-inline--fa.fa-swap-opacity .fa-primary{opacity:.4;opacity:var(--fa-secondary-opacity,.4)}.svg-inline--fa.fa-swap-opacity .fa-secondary{opacity:1;opacity:var(--fa-primary-opacity,1)}.svg-inline--fa mask .fa-primary,.svg-inline--fa mask .fa-secondary{fill:#000}.fad.fa-inverse{color:#fff}</style><link href="https://gmpg.org/xfn/11" rel="profile">
+    
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.81.0-DEV">
+
+    
+    
+    
+
+<title>Numerical approach to studying vehicle dynamics with a half-car suspension model • Najam R. Syed</title>
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Numerical approach to studying vehicle dynamics with a half-car suspension model">
+<meta name="twitter:description" content="UPDATE (2019-05-05): The code is now available on Github! It can be installed as a package, and the file example.py in the root directory can be run for demonstration by executing the following commands in a terminal:
+$ git clone https://github.com/nrsyed/half-car.git $ cd half-car $ pip install -e . $ python example.py The original post follows below.
+ “Vehicle dynamics” is a delightfully broad term that, in equally broad terms, refers to how vehicles move.">
+
+<meta property="og:title" content="Numerical approach to studying vehicle dynamics with a half-car suspension model">
+<meta property="og:description" content="UPDATE (2019-05-05): The code is now available on Github! It can be installed as a package, and the file example.py in the root directory can be run for demonstration by executing the following commands in a terminal:
+$ git clone https://github.com/nrsyed/half-car.git $ cd half-car $ pip install -e . $ python example.py The original post follows below.
+ “Vehicle dynamics” is a delightfully broad term that, in equally broad terms, refers to how vehicles move.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/">
+<meta property="article:published_time" content="2018-01-08T02:01:51+00:00">
+<meta property="article:modified_time" content="2018-01-08T02:01:51+00:00">
+
+
+    
+
+
+
+
+
+
+<link rel="stylesheet" href="./Vehicle_modelling_files/hyde-hyde.9b86e0423918a2860bf46135d6f7c7d41605f331826a0126db320ffabe9d174f.css" integrity="sha256-m4bgQjkYooYL9GE11vfH1BYF8zGCagEm2zIP+r6dF08=">
+
+
+<link rel="stylesheet" href="./Vehicle_modelling_files/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58+TzH3icCkSHGoJ+ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="https://nrsyed.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://nrsyed.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://nrsyed.com/favicon-16x16.png">
+<link rel="manifest" href="https://nrsyed.com/site.webmanifest">
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+<link href="./Vehicle_modelling_files/css2" rel="stylesheet">
+
+<style id="isso-style" type="text/css">#isso-thread * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#isso-thread .isso-comment-header a {
+    text-decoration: none;
+}
+
+#isso-thread {
+    padding: 0;
+    margin: 0;
+}
+#isso-thread > h4 {
+    color: #555;
+    font-weight: bold;
+}
+#isso-thread > .isso-feedlink {
+    float: right;
+    padding-left: 1em;
+}
+#isso-thread > .isso-feedlink > a {
+    font-size: 0.8em;
+    vertical-align: bottom;
+}
+#isso-thread .textarea {
+    min-height: 58px;
+    outline: 0;
+}
+#isso-thread .textarea.placeholder {
+    color: #757575;
+}
+
+#isso-root .isso-comment {
+    max-width: 68em;
+    padding-top: 0.95em;
+    margin: 0.95em auto;
+}
+#isso-root .preview .isso-comment {
+    padding-top: 0;
+    margin: 0;
+}
+#isso-root .isso-comment:not(:first-of-type),
+.isso-follow-up .isso-comment {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.isso-comment > div.avatar {
+    display: block;
+    float: left;
+    width: 7%;
+    margin: 3px 15px 0 0;
+}
+.isso-comment > div.avatar > svg {
+    max-width: 48px;
+    max-height: 48px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.isso-comment > div.text-wrapper {
+    display: block;
+}
+.isso-comment .isso-follow-up {
+    padding-left: calc(7% + 20px);
+}
+.isso-comment > div.text-wrapper > .isso-comment-header, .isso-comment > div.text-wrapper > .isso-comment-footer {
+    font-size: 0.95em;
+}
+.isso-comment > div.text-wrapper > .isso-comment-header {
+    font-size: 0.85em;
+}
+.isso-comment > div.text-wrapper > .isso-comment-header .spacer {
+    padding: 0 6px;
+}
+.isso-comment > div.text-wrapper > .isso-comment-header .spacer,
+.isso-comment > div.text-wrapper > .isso-comment-header a.permalink,
+.isso-comment > div.text-wrapper > .isso-comment-header .note,
+.isso-comment > div.text-wrapper > .isso-comment-header a.parent {
+    color: gray !important;
+    font-weight: normal;
+    text-shadow: none !important;
+}
+.isso-comment > div.text-wrapper > .isso-comment-header .spacer:hover,
+.isso-comment > div.text-wrapper > .isso-comment-header a.permalink:hover,
+.isso-comment > div.text-wrapper > .isso-comment-header .note:hover,
+.isso-comment > div.text-wrapper > .isso-comment-header a.parent:hover {
+    color: #606060 !important;
+}
+.isso-comment > div.text-wrapper > .isso-comment-header .note {
+    float: right;
+}
+.isso-comment > div.text-wrapper > .isso-comment-header .author {
+    font-weight: bold;
+    color: #555;
+}
+.isso-comment > div.text-wrapper > .textarea-wrapper .textarea,
+.isso-comment > div.text-wrapper > .textarea-wrapper .preview {
+    margin-top: 0.2em;
+}
+.isso-comment > div.text-wrapper > div.text p {
+    margin-top: 0.2em;
+}
+.isso-comment > div.text-wrapper > div.text p:last-child {
+    margin-bottom: 0.2em;
+}
+.isso-comment > div.text-wrapper > div.text h1,
+.isso-comment > div.text-wrapper > div.text h2,
+.isso-comment > div.text-wrapper > div.text h3,
+.isso-comment > div.text-wrapper > div.text h4,
+.isso-comment > div.text-wrapper > div.text h5,
+.isso-comment > div.text-wrapper > div.text h6 {
+    font-size: 130%;
+    font-weight: bold;
+}
+.isso-comment > div.text-wrapper > div.textarea-wrapper .textarea,
+.isso-comment > div.text-wrapper > div.textarea-wrapper .preview {
+    width: 100%;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #888;
+}
+.isso-comment > div.text-wrapper > .isso-comment-footer {
+    font-size: 0.80em;
+    color: gray !important;
+    clear: left;
+}
+.isso-feedlink,
+.isso-comment > div.text-wrapper > .isso-comment-footer a {
+    font-weight: bold;
+    text-decoration: none;
+}
+.isso-feedlink:hover,
+.isso-comment > div.text-wrapper > .isso-comment-footer a:hover {
+    color: #111111 !important;
+    text-shadow: #aaaaaa 0 0 1px !important;
+}
+.isso-comment > div.text-wrapper > .isso-comment-footer > a {
+    position: relative;
+    top: .2em;
+}
+.isso-comment > div.text-wrapper > .isso-comment-footer > a + a {
+    padding-left: 1em;
+}
+.isso-comment > div.text-wrapper > .isso-comment-footer .votes {
+    color: gray;
+}
+.isso-comment > div.text-wrapper > .isso-comment-footer .upvote svg,
+.isso-comment > div.text-wrapper > .isso-comment-footer .downvote svg {
+    position: relative;
+    top: .2em;
+}
+.isso-comment .isso-postbox {
+    margin-top: 0.8em;
+}
+.isso-comment.isso-no-votes > * > .isso-comment-footer span.votes {
+    display: none;
+}
+
+.isso-postbox {
+    max-width: 68em;
+    margin: 0 auto 2em;
+    clear: right;
+}
+.isso-postbox > .form-wrapper {
+    display: block;
+    padding: 0;
+}
+.isso-postbox > .form-wrapper > .auth-section,
+.isso-postbox > .form-wrapper > .auth-section .post-action {
+    display: block;
+}
+.isso-postbox > .form-wrapper .textarea,
+.isso-postbox > .form-wrapper .preview {
+    margin: 0 0 .3em;
+    padding: .4em .8em;
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.isso-postbox > .form-wrapper input[type=checkbox] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+    margin-left: 0;
+}
+.isso-postbox > .form-wrapper .notification-section {
+    font-size: 0.90em;
+    padding-top: .3em;
+}
+#isso-thread .textarea:focus,
+#isso-thread input:focus {
+    border-color: rgba(0, 0, 0, 0.8);
+}
+.isso-postbox > .form-wrapper > .auth-section .input-wrapper {
+    display: inline-block;
+    position: relative;
+    max-width: 25%;
+    margin: 0;
+}
+.isso-postbox > .form-wrapper > .auth-section .input-wrapper input {
+    padding: .3em 10px;
+    max-width: 100%;
+    border-radius: 3px;
+    background-color: #fff;
+    line-height: 1.4em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action {
+    display: inline-block;
+    float: right;
+    margin: 0 0 0 5px;
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input {
+    padding: calc(.3em - 1px);
+    border-radius: 2px;
+    border: 1px solid #CCC;
+    background-color: #DDD;
+    cursor: pointer;
+    outline: 0;
+    line-height: 1.4em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input:hover {
+    /*background-color: #CCC;*/
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input:active {
+    background-color: #BBB;
+}
+.isso-postbox > .form-wrapper .preview,
+.isso-postbox > .form-wrapper input[name="edit"],
+.isso-postbox.preview-mode > .form-wrapper input[name="preview"],
+.isso-postbox.preview-mode > .form-wrapper .textarea {
+    display: none;
+}
+.isso-postbox.preview-mode > .form-wrapper .preview {
+    display: block;
+}
+.isso-postbox.preview-mode > .form-wrapper input[name="edit"] {
+    display: inline;
+}
+.isso-postbox > .form-wrapper .preview {
+    background-color: #f8f8f8;
+    background: repeating-linear-gradient(
+        -45deg,
+        #f8f8f8,
+        #f8f8f8 10px,
+        #fff 10px,
+        #fff 20px
+    );
+}
+.isso-postbox > .form-wrapper > .notification-section {
+    display: none;
+    padding-bottom: 10px;
+}
+@media screen and (max-width:600px) {
+    .isso-postbox > .form-wrapper > .auth-section .input-wrapper {
+        display: block;
+        max-width: 100%;
+        margin: 0 0 .3em;
+    }
+    .isso-postbox > .form-wrapper > .auth-section .input-wrapper input {
+        width: 100%;
+    }
+}
+</style></head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://nrsyed.com/">
+        
+          Najam R. Syed
+        
+        </a>
+      </span>
+      
+        
+        
+        
+        <div class="author-image">
+          <img src="./Vehicle_modelling_files/beach.jpg" alt="Author Image" class="img--circle img--headshot element--center">
+        </div>
+        
+      
+      
+      <p class="site__description">
+         Engineering, programming, and technical miscellanies 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Najam R. Syed</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="https://nrsyed.com/">
+						<span>Home</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://nrsyed.com/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://nrsyed.com/projects/">
+						<span>Projects</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://nrsyed.com/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://nrsyed.com/contact/">
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	
+	
+	<a href="https://github.com/nrsyed" rel="me"><svg class="svg-inline--fa fa-github fa-w-16 fa-lg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><!-- <i class="fab fa-github fa-lg" aria-hidden="true"></i> --></a>
+	
+	
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/najam-syed" rel="me"><svg class="svg-inline--fa fa-linkedin fa-w-14 fa-lg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg><!-- <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i> --></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+  <a href="https://www.youtube.com/channel/UCiCUUVapPoHckB1xdZFTHiA" rel="me"><svg class="svg-inline--fa fa-youtube fa-w-18 fa-lg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg><!-- <i class="fab fa-youtube fa-lg" aria-hidden="true"></i> --></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  © 2017 - 2022 Najam R. Syed
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    
+<article>
+  <header>
+    <h1>Numerical approach to studying vehicle dynamics with a half-car suspension model</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg><!-- <i class="fas fa-calendar-alt"></i> --> Jan 08, 2018
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="https://nrsyed.com/categories/kinematics/dynamics">KINEMATICS/DYNAMICS</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br>
+           <svg class="svg-inline--fa fa-tags fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tags" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M497.941 225.941L286.059 14.059A48 48 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0 0 14.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"></path></svg><!-- <i class="fas fa-tags"></i> -->
+          
+          <a class="badge badge-tag" href="https://nrsyed.com/tags/differential-equations">differential equations</a>
+           
+      
+          <a class="badge badge-tag" href="https://nrsyed.com/tags/linear-algebra">linear algebra</a>
+           
+      
+          <a class="badge badge-tag" href="https://nrsyed.com/tags/matplotlib">matplotlib</a>
+           
+      
+          <a class="badge badge-tag" href="https://nrsyed.com/tags/numerical-methods">numerical methods</a>
+           
+      
+          <a class="badge badge-tag" href="https://nrsyed.com/tags/python">python</a>
+           
+      
+          <a class="badge badge-tag" href="https://nrsyed.com/tags/vehicle-dynamics">vehicle dynamics</a>
+          
+      
+    
+    
+    <br>
+    <svg class="svg-inline--fa fa-clock fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg><!-- <i class="fas fa-clock"></i> --> 10 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    <p><strong>UPDATE (2019-05-05):</strong> The code is now available on
+<a href="https://github.com/nrsyed/half-car">Github</a>! It can be installed as a package,
+and the file <code>example.py</code> in the root directory can be run for demonstration
+by executing the following commands in a terminal:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/nrsyed/half-car.git
+$ cd half-car
+$ pip install -e .
+$ python example.py</code></pre></div>
+
+<p>The original post follows below.</p>
+
+<hr>
+
+<p>“Vehicle dynamics” is a delightfully broad term that, in equally
+broad terms, refers to how vehicles move. As the title of this post suggests,
+we’ll be looking at cars, although the techniques we’ll use can be
+applied to any wheeled vehicle with suspension. So, what, exactly, is a
+“half-car suspension model”? It can be animated like this:</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="./Vehicle_modelling_files/_CIp4ywYVUs.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen="" title="YouTube Video"></iframe>
+</div>
+
+
+<p>In the video above, we get an idea of the pitch and bounce dynamics of a car,
+when viewed from the side, in a variety of conditions. The little triangles in
+some of the clips are “roadside markers” placed at 10 meter
+intervals to help visually gauge the speed of the car. Note that, even though
+only springs are displayed to represent the suspension in the video, both the
+front/rear suspension and the front/rear wheels are modeled as springs and
+dampers, as we’ll see below.</p>
+
+<p>The rest of this post will look at the underlying principles behind this
+half-car model and briefly discuss the numerical approach employed to solve the
+dynamics of the system.</p>
+
+<h1 id="basic-setup">Basic setup</h1>
+
+<p>A car is a vehicle with a chassis connected to four wheels (usually). These four
+wheels, in turn, are in contact with the road. The chassis isn’t directly
+attached to the wheels—rather, it is connected to them by the suspension,
+which generally consists of coil springs and shock absorbers (dampers). In other
+words, the interface between the chassis and each wheel is a spring and damper.
+In the automotive world, the chassis is called the <em>sprung mass</em>, since it is
+the portion of the vehicle held up by springs. In contrast, each wheel is
+referred to as an <em>unsprung mass</em>. Of course, the term “unsprung
+mass” is ever-so-slightly misleading, because we can also model the tire
+as a spring and damper. An inflated rubber tire is essentially a very stiff
+spring.</p>
+
+<p>If we took one corner of the car, i.e., one tire and a quarter of the chassis,
+it would look like this:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/quarter_model2.jpg"> 
+</figure>
+
+
+<p>This is called a <em>quarter-car suspension model</em>. It’s a one-dimensional
+system comprising a sprung mass (one quarter of the chassis) and an unsprung
+mass (the wheel). These form a 2-DOF system characterized by a pair of
+differential equations, which are obtained by summing forces in the vertical
+direction for the chassis and summing forces in the vertical direction for the
+wheel. Similarly, a half-car suspension model considers half the car. Sometimes,
+a half-car model considers the front half or rear half of the car (and their
+associated roll dynamics) but, usually, “half-car model” refers to
+the left/right halves and their pitch and bounce dynamics:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/half_model.jpg"> 
+</figure>
+
+
+<p>This is a 4-DOF system described by the vertical displacement of the front
+wheel, the vertical displacement of the rear wheel, the vertical displacement of
+the chassis (i.e., the “bounce”), and the rotation angle of the
+chassis (i.e., the “pitch”). We will need four equations to describe
+it. Before delving into that, let’s change the appearance of our car to
+look more like an actual car. This isn’t necessary, of course, but it
+might make the problem easier to visualize and, more importantly, it looks
+cooler. For no particular reason, let’s choose a 2010 Honda Accord Coupe:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/accord_vars.jpg"> 
+</figure>
+
+
+<p>The figure above defines several coordinates and variables. <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">z_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.04398em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is the
+vertical displacement of the chassis center of mass (COM) from its initial
+position, <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.88888em; vertical-align: -0.19444em;"></span><span class="mord mathnormal">ϕ</span></span></span></span></span></span> is the pitch angle of the chassis, <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">z_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.04398em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is the vertical
+displacement of the front wheel COM from its initial position, and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">z_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.04398em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is
+the vertical displacement of the rear wheel COM from its initial position.
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></span> is the forcing function, i.e., the road, and represents the vertical
+displacement of the road at any given horizontal coordinate <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span></span> along the
+road. <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">g_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.03588em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">g_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.03588em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are the value of this function at the front and rear
+wheel points of contact, respectively. <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>c</mi></msub><mo separator="true">,</mo><msub><mi>m</mi><mi>f</mi></msub><mo separator="true">,</mo><msub><mi>m</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">m_c, m_f, m_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are the masses of
+the chassis, front wheel, and rear wheel, respectively, and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mrow><mi>y</mi><mi>y</mi></mrow></msub></mrow><annotation encoding="application/x-tex">I_{yy}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.07847em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.03588em;">y</span><span class="mord mathnormal mtight" style="margin-right: 0.03588em;">y</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is the
+mass moment of inertia of the chassis about the pitch axis (y axis).</p>
+
+<h1 id="forces-and-equations-of-motion">Forces and equations of motion</h1>
+
+<p>First, let’s look at the forces acting on the system as a whole:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/normal_forces.jpg"> 
+</figure>
+
+
+<p><span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>l</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">l_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.980548em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.01968em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is the distance from the chassis COM and the point where the front
+suspension attaches to the chassis. This is where the forces due to the front
+suspension spring and damper will act on the chassis. Similarly, <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>l</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">l_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.84444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.01968em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is the
+distance to the rear suspension attachment point. <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">F_d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.13889em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is the drive force
+responsible for accelerating the car. Observe that there’s only one drive
+force and that it’s acting at the front wheel, since this is a
+front-wheel-drive car. To keep things simple (and because the effect is the
+same, dynamically), we’ll consider a negative drive force to be a braking
+force, even though the car has both front and rear brakes. The drive (or
+braking) force is related to the car’s acceleration by <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>d</mi></msub><mo>=</mo><mi>m</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">F_d = ma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.13889em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span></span></span></span></span></span>,
+where <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">m</span></span></span></span></span></span> is the total mass of the car (<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><msub><mi>m</mi><mi>c</mi></msub><mo>+</mo><msub><mi>m</mi><mi>f</mi></msub><mo>+</mo><msub><mi>m</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">m = m_c + m_f + m_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.73333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.869438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span>) and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">a</span></span></span></span></span></span>
+is the horizontal acceleration of the car. Note that the system’s overall
+COM won’t be at exactly the same location as the chassis COM, since it
+also accounts for the COM of each wheel, but because the mass of the chassis is
+significantly larger than the mass of the wheels, it will be relatively close.
+For simplicity, we’ll proceed with the assumption that the chassis COM and
+the system COM are identical. The figure above and the equations therein show us
+that the normal force acting on each wheel consists of a static component and a
+dynamic component. For the front wheel, the static component is
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>l</mi><mi>r</mi></msub><mi>l</mi></mfrac><mtext>&nbsp;</mtext><mi>m</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">\frac{l_r}{l}\ mg</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.24121em; vertical-align: -0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.896208em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.4101em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.164543em;"><span class="" style="top: -2.357em; margin-left: -0.01968em; margin-right: 0.0714286em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.143em;"><span class=""></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace">&nbsp;</span><span class="mord mathnormal">m</span><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span></span></span></span></span></span> and the dynamic component is <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>h</mi><mi>l</mi></mfrac><mtext>&nbsp;</mtext><mi>m</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">-\frac{h}{l}\ ma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.22511em; vertical-align: -0.345em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.880108em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace">&nbsp;</span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span></span></span></span></span></span>. For
+the rear wheel, the static component is <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>l</mi><mi>f</mi></msub><mi>l</mi></mfrac><mtext>&nbsp;</mtext><mi>m</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">\frac{l_f}{l}\ mg</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.34419em; vertical-align: -0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.999188em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.51308em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3448em;"><span class="" style="top: -2.34877em; margin-left: -0.01968em; margin-right: 0.0714286em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.290114em;"><span class=""></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace">&nbsp;</span><span class="mord mathnormal">m</span><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span></span></span></span></span></span> and the dynamic
+component is <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>h</mi><mi>l</mi></mfrac><mtext>&nbsp;</mtext><mi>m</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\frac{h}{l}\ ma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.22511em; vertical-align: -0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.880108em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace">&nbsp;</span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span></span></span></span></span></span>. Here, the wheelbase <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span></span></span></span></span></span> is defined as <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>=</mo><msub><mi>l</mi><mi>f</mi></msub><mo>+</mo><msub><mi>l</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">l =
+l_f + l_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.980548em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.01968em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.84444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.01968em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span></span></span></span></span></span> refers to gravity, not the road function from above. This
+means that the normal forces acting on the wheels change proportionally with
+acceleration. This is why the back of a car dips (“squats”) when it
+accelerates and why the front of a car dips (“dives”) when it
+brakes.</p>
+
+<p>This also brings up another important point: the static component of the normal
+force depends only upon the mass of the car and the positions of the wheels
+relative to the overall COM. It doesn’t change regardless of acceleration.
+Recall how, several paragraphs above, all the coordinates were defined as
+displacements from an initial position; for convenience, we can define that
+initial position to be when the car is at rest on flat ground. Then, studying
+the dynamics of this multibody system is just a matter of examining what happens
+when the components of the car or the forces acting on the car <em>change</em>. In
+other words, we can assume all static forces are taken into account by the
+initial position. For example, we can ignore the weight <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>c</mi></msub><mi>g</mi></mrow><annotation encoding="application/x-tex">m_c g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right: 0.03588em;">g</span></span></span></span></span></span> of the
+chassis because the springs in the suspension are already sufficiently
+compressed (pre-loaded) to offset it in the initial position. Similarly, we can
+ignore the static parts of the normal forces and take into account only the
+dynamic (changing) parts, which I’ll call <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>N</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">\Delta N_f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord">Δ</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.10903em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>N</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">\Delta
+N_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord">Δ</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.10903em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span>. Keeping this in mind, we can now continue by examining each rigid body
+and writing its equation(s) of motion, starting with the chassis:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/chassis_accels.jpg"> 
+</figure>
+
+
+<p><span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mrow><mi>f</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">k_{fs}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.980548em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.03148em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mrow><mi>r</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">k_{rs}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.84444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.03148em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are the spring rates of the front suspension and
+rear suspension, respectively. <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>f</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{fs}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>r</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{rs}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are the damping
+constants of the front and rear suspension. There are two equations of motion
+for the chassis, one for its vertical translation (bounce) and the other for its
+rotation (pitch). Although the pitch angle in the figure above is exaggerated
+for effect, it’s assumed that the chassis will pitch through a relatively
+small range of angles. Therefore, we utilize the small angle approximation
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>i</mi><mi>n</mi><mi>θ</mi><mo>≈</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">sin\theta \approx \theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right: 0.02778em;">θ</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">θ</span></span></span></span></span></span> in the moment equation. Observe that we utilize
+both the position and velocity of each coordinate—position for the spring
+forces and velocity for the damper forces. Also note that we assume the
+suspension remains vertical, regardless of the chassis pitch angle; this goes
+hand-in-hand with the small angle approximation. For small angular
+displacements, these assumptions are valid approximations.</p>
+
+<p>Next, we write the equations of motion for the vertical displacement of each
+wheel:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/wheel_accels2.jpg"> 
+</figure>
+
+
+<p><span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mrow><mi>f</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">k_{ft}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.980548em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.03148em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mrow><mi>r</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">k_{rt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.84444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.280556em;"><span class="" style="top: -2.55em; margin-left: -0.03148em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are the spring rates of the front and rear tires,
+respectively. Similarly, <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>f</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ft}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>r</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{rt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.280556em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are the damping constants
+of the front and rear tires. Notice that the forces of the suspension acting on
+the wheels are equal and opposite to the forces of the suspension acting on the
+chassis.</p>
+
+<p>Writing all four equations together and solving for the accelerations by
+dividing through the masses and mass moment of inertia:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/accel_equations.jpg"> 
+</figure>
+
+
+<p>Finally, we can rewrite this system of equations in matrix form. Multiplying the
+terms through (and separating them into corresponding matrices/vectors) is left
+as an exercise to you, the reader, but the end result looks like this:</p>
+
+<figure>
+    <img src="./Vehicle_modelling_files/matrix_equations.jpg"> 
+</figure>
+
+
+<p>If you’re not used to dealing with matrices, this might seem intimidating
+at first, but all it does is reorganize our four equations of motion into
+several distinct pieces. <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">q</mi><mo>¨</mo></mover></mrow><annotation encoding="application/x-tex">\pmb{\ddot{q}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.8623em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height: 0.8623em; vertical-align: -0.19444em;"></span><span class="inner"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.66786em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">q</span></span></span><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.16666em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span></span><span class="fix"></span></span></span></span><span class="mspace" style="margin-right: 0.0501875em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.66786em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">q</span></span></span><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.16666em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></span> is a 4×1 vector containing the
+acceleration of the coordinates <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>z</mi><mi>c</mi></msub><mo separator="true">,</mo><mi>ϕ</mi><mo separator="true">,</mo><msub><mi>z</mi><mi>f</mi></msub><mo separator="true">,</mo><msub><mi>z</mi><mi>r</mi></msub><msup><mo stretchy="false">}</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\{z_c, \phi, z_f, z_r\}^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.12744em; vertical-align: -0.286108em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.04398em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal">ϕ</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.04398em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.04398em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.841331em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.13889em;">T</span></span></span></span></span></span></span></span></span></span></span></span></span>, which
+I’ve denoted as a vector <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">q</mi></mrow><annotation encoding="application/x-tex">\mathbf{q}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.63888em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span></span></span></span></span> (from which it follows that
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf{\dot{q}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.90232em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> is a vector containing the velocity of each coordinate).
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>K</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[K]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right: 0.07153em;">K</span><span class="mclose">]</span></span></span></span></span></span> is the stiffness matrix that consolidates the spring constants and
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>C</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[C]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right: 0.07153em;">C</span><span class="mclose">]</span></span></span></span></span></span> is the damping matrix that consolidates the damping constants.
+<span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">g</mi></mrow><annotation encoding="application/x-tex">\mathbf{g}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.63888em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord mathbf" style="margin-right: 0.01597em;">g</span></span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">g</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf{\dot{g}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.90232em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf" style="margin-right: 0.01597em;">g</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span> are vectors containing the displacement and
+velocity, respectively, of the road at the front and rear points of contact with
+the wheels. To go along with these are <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><msub><mi>K</mi><mi>g</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[K_g]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.03611em; vertical-align: -0.286108em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span></span></span></span></span></span> and <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><msub><mi>C</mi><mi>g</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[C_g]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.03611em; vertical-align: -0.286108em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span></span></span></span></span></span>, which relate
+the road profile (and its rate of change) to forces exerted on the wheels.
+Finally, the vector <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">n</mi></mrow><annotation encoding="application/x-tex">\mathbf{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.44444em; vertical-align: 0em;"></span><span class="mord"><span class="mord mathbf">n</span></span></span></span></span></span></span> is a normal force vector containing the dynamic
+parts of the normal force at the front and rear wheels. Splitting all of these
+up into matrices and vectors makes it relatively easy to solve the dynamics of
+the system numerically, since the matrices contain properties of the system that
+do not change, whereas the vectors can be updated at each iteration.</p>
+
+<h1 id="numerical-solution-via-the-euler-method">Numerical solution via the Euler method</h1>
+
+<p>There exist many robust and stable numerical methods for solving a system of
+differential equations like this one. The Euler method is not one of them. Why
+did I choose it for this post, then? Because it’s simple, relatively
+speaking, and requires little more explanation than we’ve already been
+through. Instead of going into detail about the Euler method (which can
+essentially be thought of as a first order Runge-Kutta method, if you’re
+familiar with RK methods), I’ll just show you how it works, in the context
+of this particular problem, with four fairly straightforward equations:</p>
+
+<p><span class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="bold">q</mi><mn>0</mn></msub><mo>=</mo><mi mathvariant="bold">q</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{q}_0 = \mathbf{q}(0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.63888em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">q</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathbf">q</span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span></span></span></p>
+
+<p><span class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover><mn>0</mn></msub><mo>=</mo><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{\dot{q}}_0 = \mathbf{\dot{q}}(0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.95202em; vertical-align: -0.24414em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.206968em;"><span class="" style="top: -2.45586em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.24414em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span></span></span></p>
+
+<p><span class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="bold">q</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi mathvariant="bold">q</mi><mi>i</mi></msub><mo>+</mo><msub><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover><mi>i</mi></msub><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\mathbf{q}_{i+1} = \mathbf{q}_i + \mathbf{\dot{q}}_i \Delta t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.652771em; vertical-align: -0.208331em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">q</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.208331em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.77777em; vertical-align: -0.19444em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">q</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.95202em; vertical-align: -0.24414em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.217524em;"><span class="" style="top: -2.45586em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.24414em;"><span class=""></span></span></span></span></span></span><span class="mord">Δ</span><span class="mord mathnormal">t</span></span></span></span></span></span></span></p>
+
+<p><span class="math"><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover><mi>i</mi></msub><mo>+</mo><msub><mover accent="true"><mi mathvariant="bold">q</mi><mo>¨</mo></mover><mi>i</mi></msub><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\mathbf{\dot{q}}_{i+1} = \mathbf{\dot{q}}_i + \mathbf{\ddot{q}}_i \Delta t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.01035em; vertical-align: -0.302471em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.217524em;"><span class="" style="top: -2.45586em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.302471em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.95202em; vertical-align: -0.24414em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.15972em;"><span class="mord mathbf">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.217524em;"><span class="" style="top: -2.45586em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.24414em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.95202em; vertical-align: -0.24414em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.70788em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">q</span></span></span><span class="" style="top: -3.01344em;"><span class="pstrut" style="height: 3em;"></span><span class="accent-body" style="left: -0.2875em;"><span class="mord mathbf">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.19444em;"><span class=""></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.217524em;"><span class="" style="top: -2.45586em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.24414em;"><span class=""></span></span></span></span></span></span><span class="mord">Δ</span><span class="mord mathnormal">t</span></span></span></span></span></span></span></p>
+
+<p>The first two equations just set the initial positions and initial velocities to
+whatever we choose. The third equation computes the positions at the next
+iteration based on the current positions and velocities. The fourth equation
+computes the velocities at the next iteration based on the current velocities
+and accelerations. We select a time step <span class="math"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord">Δ</span><span class="mord mathnormal">t</span></span></span></span></span></span> for our simulation, which
+is applied at every iteration. The smaller the time step, the more accurate the
+simulation. We apply these last two equations repeatedly until the algorithm
+reaches a selected end condition, or indefinitely, if we wish.</p>
+
+<p>That, in a nutshell, is a simple numerical approach to solving half-car
+dynamics. There are many other methods, both numerical (like the aforementioned
+Runge-Kutta methods) and analytical (like developing and solving the transfer
+function for the system). While numerical approaches have disadvantages, like
+the potential for instabilities and error, they also have advantages, like the
+ability to easily handle nonlinear inputs (e.g., random road profiles). We may
+explore some of these other approaches in future posts. Furthermore, the next
+step up from a half-car model is a full-car model. As you might guess, a
+full-car model is a three-dimensional model with considerably more degrees of
+freedom, which takes into account the roll, pitch, and yaw of the vehicle, as
+well as the vertical displacements of four wheels. We may tackle this in a
+future post, as well.</p>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="https://nrsyed.com/2017/12/30/animating-the-grassfire-path-planning-algorithm/" class="navigation-prev">
+      <svg aria-hidden="true" class="svg-inline--fa fa-chevron-left fa-w-10" focusable="false" data-prefix="fa" data-icon="chevron-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg><!-- <i aria-hidden="true" class="fa fa-chevron-left"></i> -->
+      <span class="navigation-tittle">Animating the Grassfire path-planning algorithm</span>
+    </a>
+    
+    
+    <a href="https://nrsyed.com/2018/01/21/how-to-read-a-dc-motor-datasheet/" class="navigation-next">
+      <span class="navigation-tittle">How to read a DC motor datasheet</span>
+      <svg aria-hidden="true" class="svg-inline--fa fa-chevron-right fa-w-10" focusable="false" data-prefix="fa" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg><!-- <i aria-hidden="true" class="fa fa-chevron-right"></i> -->
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+  <!-- isso -->
+
+<script>
+  document.getElementById("nojs-comments").remove();
+</script>
+<script data-isso="/isso/" data-isso-id="/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/" data-isso-reply-to-self="true" data-isso-require-author="true" data-isso-reply-notifications="false" data-isso-vote="false" src="./Vehicle_modelling_files/embed.min.js.download"></script>
+
+<section id="isso-thread" data-isso-id="/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/" data-title="/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/"><h4>31 Comments</h4><div class="isso-postbox"><div class="form-wrapper"><div class="textarea-wrapper"><div contenteditable="true" class="textarea placeholder">Leave a comment</div><div class="preview"><div class="isso-comment"><div class="text-wrapper"><div class="text"></div></div></div></div></div><section class="auth-section"><p class="input-wrapper"><input type="text" name="author" placeholder="Name" value=""></p><p class="input-wrapper"><input type="email" name="email" placeholder="E-mail (optional)" value=""></p><p class="input-wrapper"><input type="text" name="website" placeholder="Website (optional)" value=""></p><p class="post-action"><input type="submit" value="Submit"></p><p class="post-action"><input type="button" name="preview" value="Preview"></p><p class="post-action"><input type="button" name="edit" value="Edit"></p></section><section class="notification-section" style="display: none;"><label><input type="checkbox" name="notification">Subscribe to email notification of replies</label></section></div></div><div id="isso-root"><div id="isso-6" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="9359172b8cd1"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="28" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Marcin</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-6" class="permalink"><time title="Fri Nov 16 2018 19:10:30 GMT-0500 (Eastern Standard Time)" datetime="2018-10-06T00:10:30Z">5 years ago</time></a><span class="note"></span></div><div class="text"><p>Hello,
+could You share python code behind this really awsome article?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-7" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="9c5c78387def"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="4" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="36" width="8" height="8" style="fill: #447c69"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-7" class="permalink"><time title="Fri Dec 07 2018 07:03:22 GMT-0500 (Eastern Standard Time)" datetime="2018-11-05T12:03:22Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Glad you like it! I wrote the original code for this while still learning Python, long before actually making this post, and so it's rather messy. I've been intending to clean the code up for a while now—I'll try to get around to this and share it soon.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-13" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="abbf321d2b81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Marcelo</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-13" class="permalink"><time title="Sat Dec 29 2018 11:04:31 GMT-0500 (Eastern Standard Time)" datetime="2018-11-06T16:04:31Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Nice job Hajam!. I am intristing to learn how to simulate the car. Coud you help me please? Thank a lot</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-14" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="9c5c78387def"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="4" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="36" width="8" height="8" style="fill: #447c69"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-14" class="permalink"><time title="Sat Dec 29 2018 23:46:33 GMT-0500 (Eastern Standard Time)" datetime="2018-11-00T04:46:33Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Thanks! Which aspects do you need help with?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-15" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="9ed635a13e7d"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="36" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="4" y="36" width="8" height="8" style="fill: #f19670"></rect><rect x="36" y="36" width="8" height="8" style="fill: #f19670"></rect><rect x="12" y="4" width="8" height="8" style="fill: #f19670"></rect><rect x="28" y="4" width="8" height="8" style="fill: #f19670"></rect><rect x="12" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="28" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="12" y="20" width="8" height="8" style="fill: #f19670"></rect><rect x="28" y="20" width="8" height="8" style="fill: #f19670"></rect><rect x="12" y="28" width="8" height="8" style="fill: #f19670"></rect><rect x="28" y="28" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="20" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="28" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="36" width="8" height="8" style="fill: #f19670"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Maz Sh</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-15" class="permalink"><time title="Thu Jan 10 2019 22:21:45 GMT-0500 (Eastern Standard Time)" datetime="2019-00-05T03:21:45Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Hi Sir, </p>
+
+<p>This is awesome! I was looking into using this model for a scooter to measure vertical displacement across a stretch of road. My question is, if I apply this model does it take into account the instantaneous velocity of the scooter. For example, the scooter was to pass a 10 mm bump at 15km/hr would the calculated displacement be the same as if the scooter was traveling at 10km/hr?</p>
+
+<p>Thank you.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-16" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-16" class="permalink"><time title="Fri Jan 18 2019 13:22:20 GMT-0500 (Eastern Standard Time)" datetime="2019-00-05T18:22:20Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Thanks, glad you like it! Assuming I understand your question correctly, this model takes into account the instantaneous vertical velocity of the vehicle, but the horizontal velocity of the vehicle does not directly affect the response of the vehicle to an obstacle or to the terrain. The horizontal velocity of the vehicle only changes the amount of time it takes the vehicle to reach an obstacle (like your hypothetical bump).</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-19" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="d03463ca69be"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="4" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="4" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="12" y="12" width="8" height="8" style="fill: #e4bf80"></rect><rect x="28" y="12" width="8" height="8" style="fill: #e4bf80"></rect><rect x="12" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="28" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="20" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="36" width="8" height="8" style="fill: #e4bf80"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">vedant</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-19" class="permalink"><time title="Sun Jan 27 2019 06:59:27 GMT-0500 (Eastern Standard Time)" datetime="2019-00-00T11:59:27Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Great work sir!
+Could I please have your code?
+Thank you!</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-20" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-20" class="permalink"><time title="Mon Jan 28 2019 06:14:29 GMT-0500 (Eastern Standard Time)" datetime="2019-00-01T11:14:29Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Just sent you an email!</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-21" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="48bb4f636820"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #9abf88"></rect><rect x="36" y="4" width="8" height="8" style="fill: #9abf88"></rect><rect x="4" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="36" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="4" y="28" width="8" height="8" style="fill: #9abf88"></rect><rect x="36" y="28" width="8" height="8" style="fill: #9abf88"></rect><rect x="4" y="36" width="8" height="8" style="fill: #9abf88"></rect><rect x="36" y="36" width="8" height="8" style="fill: #9abf88"></rect><rect x="12" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="28" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="20" y="20" width="8" height="8" style="fill: #9abf88"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Alexander Fürsterling</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-21" class="permalink"><time title="Fri Mar 15 2019 10:23:05 GMT-0400 (Eastern Daylight Time)" datetime="2019-02-05T14:23:05Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Great work. Very good description!
+We are looking to do something similar.
+Would you mind sending your code?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-22" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-22" class="permalink"><time title="Tue Mar 26 2019 02:43:48 GMT-0400 (Eastern Daylight Time)" datetime="2019-02-02T06:43:48Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Thanks for your comment! Just emailed you the code.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-23" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="b37f282e26d6"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="4" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="12" y="20" width="8" height="8" style="fill: #e4bf80"></rect><rect x="28" y="20" width="8" height="8" style="fill: #e4bf80"></rect><rect x="12" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="28" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="12" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="28" width="8" height="8" style="fill: #e4bf80"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Anonymous</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-23" class="permalink"><time title="Tue Apr 23 2019 19:46:30 GMT-0400 (Eastern Daylight Time)" datetime="2019-03-02T23:46:30Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Great blog.</p>
+
+<p>mind sharing the code?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-24" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-24" class="permalink"><time title="Wed Apr 24 2019 00:50:30 GMT-0400 (Eastern Daylight Time)" datetime="2019-03-03T04:50:30Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Thanks! I'm working on rewriting the code to clean it up and make it more clear/presentable before putting it up online. However, you're welcome to take a look at the existing messy version if you'd like—shoot me a message through the Contact page (<a href="https://nrsyed.com/contact/" rel="nofollow noopener">https://nrsyed.com/contact/</a>) with your email and I can send it to you.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-25" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="72c0476df884"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="12" width="8" height="8" style="fill: #be5168"></rect><rect x="36" y="12" width="8" height="8" style="fill: #be5168"></rect><rect x="4" y="20" width="8" height="8" style="fill: #be5168"></rect><rect x="36" y="20" width="8" height="8" style="fill: #be5168"></rect><rect x="4" y="28" width="8" height="8" style="fill: #be5168"></rect><rect x="36" y="28" width="8" height="8" style="fill: #be5168"></rect><rect x="4" y="36" width="8" height="8" style="fill: #be5168"></rect><rect x="36" y="36" width="8" height="8" style="fill: #be5168"></rect><rect x="12" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="28" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="12" y="12" width="8" height="8" style="fill: #be5168"></rect><rect x="28" y="12" width="8" height="8" style="fill: #be5168"></rect><rect x="20" y="4" width="8" height="8" style="fill: #be5168"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Anushree</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-25" class="permalink"><time title="Wed Apr 24 2019 23:59:16 GMT-0400 (Eastern Daylight Time)" datetime="2019-03-04T03:59:16Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Can you please share the code?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-26" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-26" class="permalink"><time title="Mon Apr 29 2019 00:37:50 GMT-0400 (Eastern Daylight Time)" datetime="2019-03-01T04:37:50Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Please check your email. Let me know if you didn't receive it.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-27" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="32e187fc2ae5"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="36" width="8" height="8" style="fill: #f19670"></rect><rect x="36" y="36" width="8" height="8" style="fill: #f19670"></rect><rect x="12" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="28" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="12" y="28" width="8" height="8" style="fill: #f19670"></rect><rect x="28" y="28" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="4" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="12" width="8" height="8" style="fill: #f19670"></rect><rect x="20" y="20" width="8" height="8" style="fill: #f19670"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">SHIVAM MISHRA</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-27" class="permalink"><time title="Wed May 01 2019 06:15:24 GMT-0400 (Eastern Daylight Time)" datetime="2019-04-03T10:15:24Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Great work sir. Very good description!
+We are looking to do something similar.
+Would you mind sending your code?
+Looking to do something similar
+Thank You</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-28" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-28" class="permalink"><time title="Thu May 02 2019 13:25:05 GMT-0400 (Eastern Daylight Time)" datetime="2019-04-04T17:25:05Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Just sent you an email. Let me know if you didn't get it.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-29" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="8ad2eae3216a"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="12" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="12" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="12" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="28" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="12" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="36" width="8" height="8" style="fill: #e279a3"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Bharath Ballamudi</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-29" class="permalink"><time title="Sat May 04 2019 16:26:47 GMT-0400 (Eastern Daylight Time)" datetime="2019-04-06T20:26:47Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Great blog.</p>
+
+<p>Mind sharing the code?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-30" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="b37f282e26d6"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="4" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="36" y="36" width="8" height="8" style="fill: #e4bf80"></rect><rect x="12" y="20" width="8" height="8" style="fill: #e4bf80"></rect><rect x="28" y="20" width="8" height="8" style="fill: #e4bf80"></rect><rect x="12" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="28" y="28" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="4" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="12" width="8" height="8" style="fill: #e4bf80"></rect><rect x="20" y="28" width="8" height="8" style="fill: #e4bf80"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Anonymous</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-30" class="permalink"><time title="Sat May 04 2019 16:30:09 GMT-0400 (Eastern Daylight Time)" datetime="2019-04-06T20:30:09Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Ignore the comment. I already got the code from you. Thanks. I wish to subscribe to your website please let me know if you can facilitate that.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-31" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="8a0683201000"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="12" y="4" width="8" height="8" style="fill: #9abf88"></rect><rect x="28" y="4" width="8" height="8" style="fill: #9abf88"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Vladan</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-31" class="permalink"><time title="Fri May 24 2019 19:28:51 GMT-0400 (Eastern Daylight Time)" datetime="2019-04-05T23:28:51Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Great work. I intend to do a similar thing with other program. The only thing I m stil wondering about is how to implement the road profile.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-32" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-32" class="permalink"><time title="Mon May 27 2019 01:29:30 GMT-0400 (Eastern Daylight Time)" datetime="2019-04-01T05:29:30Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Thanks, glad you like it! What kind of road profile are you looking to implement? Take a look at the way I implemented it in the updated half-car repo (<a href="https://github.com/nrsyed/half-car/blob/master/halfcar/road.py" rel="nofollow noopener">https://github.com/nrsyed/half-car/blob/master/halfcar/road.py</a>) if you haven't already and see if it gives you any ideas.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-33" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="8a0683201000"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="12" y="4" width="8" height="8" style="fill: #9abf88"></rect><rect x="28" y="4" width="8" height="8" style="fill: #9abf88"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Vladan</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-33" class="permalink"><time title="Sun Jun 02 2019 20:35:07 GMT-0400 (Eastern Daylight Time)" datetime="2019-05-01T00:35:07Z">4 years ago</time></a><span class="note"></span></div><div class="text"><p>Hi again.  Two profiles bumpy ans sinusoidal. You did bot of them. I allready practised similar things with pencil and paper but not of such a complexity as you do with computer. I am now on the third year mechanical engeenering and I am trying to push forward using a computer. My practical experience eye tells me that you model functioning is very good.
+Thank you for your advices.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div><div id="isso-34" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="ddbb1ecf8a3f"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="4" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="4" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="36" width="8" height="8" style="fill: #447c69"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Nabil Ahmed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-34" class="permalink"><time title="Sat Feb 22 2020 17:37:19 GMT-0500 (Eastern Standard Time)" datetime="2020-01-06T22:37:19Z">3 years ago</time></a><span class="note"></span></div><div class="text"><p>Hi Najam. I'm currently studying vehicle dynamics. I came across your blog when looking at the half car model, great job you are doing. I have a question for you regarding the forcing function (road excitation). In your case it is a sinusoidal function of distance. In a case where the car is not moving forward,  I imagine the excitation would be a random variation of gf and gr with time, how would this be modeled?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-35" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="05327592c3ba"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="12" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="28" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="12" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="28" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="36" width="8" height="8" style="fill: #e279a3"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">RB</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-35" class="permalink"><time title="Sun Mar 28 2021 12:13:51 GMT-0400 (Eastern Daylight Time)" datetime="2021-02-00T16:13:51Z">2 years ago</time></a><span class="note"></span></div><div class="text"><p>check this out bro.</p>
+<pre><code>from random import seed
+from random import random
+import time
+
+if self.mode in ("sine", "square", "triangle", "bump", "rand", "noisy_sine"):
+    sin_arg = frequency * (distance + (i / resolution))
+    sine_value = math.sin(sin_arg)
+    if self.mode == "sine":
+        next_point = amplitude * sine_value
+    elif self.mode == "square":
+        if sine_value &gt;= 0:
+            next_point = 0
+        else:
+            next_point = amplitude
+    elif self.mode in ("triangle", "bump"):
+        wave_arg = sin_arg % (2 * math.pi)
+        if self.mode == "bump":
+            wave_arg *= 2
+        if wave_arg &lt;= math.pi:
+            # Rising line
+            next_point = amplitude * wave_arg / math.pi
+        elif wave_arg &lt;= 2 * math.pi:
+            # Rising line
+            next_point = amplitude * (2 * math.pi - wave_arg) / math.pi
+        else:
+            next_point = 0
+    elif self.mode == "rand":
+        seed(time.time())
+        next_point = amplitude * random()
+    elif self.mode == "noisy_sine":
+        seed(time.time())
+        next_point = amplitude * sine_value + .5*amplitude * random()
+</code></pre></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-36" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="c31f3ebccddf"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="4" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="36" width="8" height="8" style="fill: #447c69"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Omar</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-36" class="permalink"><time title="Mon Mar 22 2021 04:19:12 GMT-0400 (Eastern Daylight Time)" datetime="2021-02-01T08:19:12Z">2 years ago</time></a><span class="note"></span></div><div class="text"><p>Hi,</p>
+
+<p>thanks for sharing the code. 
+I am trying to estimate the force that is applied to the ground for each wheel as function of time. Wondering if you have a suggestion to get those values from your code.</p>
+
+<p>Omar</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div><div id="isso-111" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="3313ac4fe421"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="4" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="20" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Detchart</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-111" class="permalink"><time title="Wed Nov 03 2021 11:08:34 GMT-0400 (Eastern Daylight Time)" datetime="2021-10-03T15:08:34Z">2 years ago</time></a><span class="note"></span></div><div class="text"><p>Can you please share the code?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-112" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="9c5c78387def"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="28" width="8" height="8" style="fill: #447c69"></rect><rect x="4" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="36" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="12" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="28" y="36" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="4" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="12" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="20" width="8" height="8" style="fill: #447c69"></rect><rect x="20" y="36" width="8" height="8" style="fill: #447c69"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><a href="https://nrsyed.com/" rel="nofollow" class="author">Najam R Syed</a><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-112" class="permalink"><time title="Wed Nov 03 2021 11:13:49 GMT-0400 (Eastern Daylight Time)" datetime="2021-10-03T15:13:49Z">2 years ago</time></a><span class="note"></span></div><div class="text"><p>Hey Detchart, the link is available at the top of the post (though I might edit it to make it more clear): <a href="https://github.com/nrsyed/half-car" rel="nofollow noopener">https://github.com/nrsyed/half-car</a></p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-113" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="c4ec15514cf0"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="36" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="4" y="28" width="8" height="8" style="fill: #9abf88"></rect><rect x="36" y="28" width="8" height="8" style="fill: #9abf88"></rect><rect x="12" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="28" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="12" y="20" width="8" height="8" style="fill: #9abf88"></rect><rect x="28" y="20" width="8" height="8" style="fill: #9abf88"></rect><rect x="20" y="4" width="8" height="8" style="fill: #9abf88"></rect><rect x="20" y="12" width="8" height="8" style="fill: #9abf88"></rect><rect x="20" y="20" width="8" height="8" style="fill: #9abf88"></rect><rect x="20" y="28" width="8" height="8" style="fill: #9abf88"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">dhiraj</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-113" class="permalink"><time title="Wed Nov 24 2021 11:28:21 GMT-0500 (Eastern Standard Time)" datetime="2021-10-03T16:28:21Z">2 years ago</time></a><span class="note"></span></div><div class="text"><p>can you please share the code , I'm stuck with a project similar to this ...</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"><div id="isso-114" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="0faf32245d81"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="36" y="28" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="4" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="12" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="20" width="8" height="8" style="fill: #5698c4"></rect><rect x="12" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="28" y="36" width="8" height="8" style="fill: #5698c4"></rect><rect x="20" y="4" width="8" height="8" style="fill: #5698c4"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Najam R Syed</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-114" class="permalink"><time title="Wed Nov 24 2021 17:35:39 GMT-0500 (Eastern Standard Time)" datetime="2021-10-03T22:35:39Z">2 years ago</time></a><span class="note"></span></div><div class="text"><p>Hi dhiraj, the link to the code is at the top of the post.</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></div></div><div id="isso-121" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="24875ebb109c"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="36" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="4" y="12" width="8" height="8" style="fill: #be5168"></rect><rect x="36" y="12" width="8" height="8" style="fill: #be5168"></rect><rect x="12" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="28" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="20" y="4" width="8" height="8" style="fill: #be5168"></rect><rect x="20" y="28" width="8" height="8" style="fill: #be5168"></rect><rect x="20" y="36" width="8" height="8" style="fill: #be5168"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">James Briody</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-121" class="permalink"><time title="Thu May 19 2022 13:16:57 GMT-0400 (Eastern Daylight Time)" datetime="2022-04-04T17:16:57Z">last year</time></a><span class="note"></span></div><div class="text"><p>Hi Najam just after reading your thesis and found it very interesting. I am trying to solve a similar problem and  wondering if you have any tips for completing the numerical solution in MATLAB using the Runge Kutta method?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div><div id="isso-126" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="4d97e37a794b"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #9163b6"></rect><rect x="36" y="4" width="8" height="8" style="fill: #9163b6"></rect><rect x="4" y="28" width="8" height="8" style="fill: #9163b6"></rect><rect x="36" y="28" width="8" height="8" style="fill: #9163b6"></rect><rect x="4" y="36" width="8" height="8" style="fill: #9163b6"></rect><rect x="36" y="36" width="8" height="8" style="fill: #9163b6"></rect><rect x="12" y="4" width="8" height="8" style="fill: #9163b6"></rect><rect x="28" y="4" width="8" height="8" style="fill: #9163b6"></rect><rect x="12" y="12" width="8" height="8" style="fill: #9163b6"></rect><rect x="28" y="12" width="8" height="8" style="fill: #9163b6"></rect><rect x="12" y="36" width="8" height="8" style="fill: #9163b6"></rect><rect x="28" y="36" width="8" height="8" style="fill: #9163b6"></rect><rect x="20" y="12" width="8" height="8" style="fill: #9163b6"></rect><rect x="20" y="36" width="8" height="8" style="fill: #9163b6"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Xujiang</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-126" class="permalink"><time title="Fri Aug 12 2022 08:55:29 GMT-0400 (Eastern Daylight Time)" datetime="2022-07-05T12:55:29Z">last year</time></a><span class="note"></span></div><div class="text"><p>Hello,</p>
+
+<p>After reading your article, there is a confusing point in your differential equation. In the second differential equation regarding \ddot{\phi}, for the second and third terms, shouldn't be -l<em>r(l</em>r<em>phi-z<em>c+z</em>r)</em>k<em>{rs} and -l</em>f(l<em>f*\dot{phi)+\dot{z}</em>c-\dot{z}<em>f)*c</em>{fs}?</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div><div id="isso-132" class="isso-comment"><div class="avatar"><svg version="1.1" viewBox="0 0 48 48" preserveAspectRatio="xMinYMin meet" shape-rendering="crispEdges" data-hash="48885903c772"><rect x="0" y="0" width="56" height="56" style="fill: #f0f0f0"></rect><rect x="4" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="4" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="12" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="12" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="4" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="36" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="12" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="28" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="12" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="28" y="28" width="8" height="8" style="fill: #e279a3"></rect><rect x="12" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="28" y="36" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="12" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="20" width="8" height="8" style="fill: #e279a3"></rect><rect x="20" y="28" width="8" height="8" style="fill: #e279a3"></rect></svg></div><div class="text-wrapper"><div role="meta" class="isso-comment-header"><span class="author">Abdullah</span><span class="spacer">•</span><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#isso-132" class="permalink"><time title="Mon Sep 12 2022 16:41:32 GMT-0400 (Eastern Daylight Time)" datetime="2022-08-01T20:41:32Z">last year</time></a><span class="note"></span></div><div class="text"><p>Great work sir!
+Could I please have your code?
+Thank you!</p></div><div class="isso-comment-footer"><a href="https://nrsyed.com/2018/01/07/numerical-approach-to-studying-vehicle-dynamics-with-a-half-car-suspension-model/#" class="reply">Reply</a></div><div class="isso-follow-up"></div></div></div></div></section>
+<!-- end isso -->
+
+</article>
+
+
+        </div>
+        
+    
+
+<script defer="" src="./Vehicle_modelling_files/all.js.download" integrity="sha384-ZbbbT1gw3joYkKRqh0kWyRp32UAvdqkpbLedQJSlnI8iLQcFVxaGyrOgOJiDQTTR" crossorigin="anonymous"></script>
+
+
+
+
+    
+
+
+    <link rel="stylesheet" href="./Vehicle_modelling_files/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+
+<script defer="" src="./Vehicle_modelling_files/katex.min.js.download" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+ 
+<script defer="" src="./Vehicle_modelling_files/auto-render.min.js.download" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+    
+
+</body></html>

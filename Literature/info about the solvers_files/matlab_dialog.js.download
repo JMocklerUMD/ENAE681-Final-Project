@@ -1,0 +1,407 @@
+const CA_GET_DROP_DOWN_TEXT = 'Get';
+
+const CA_COPY_CODE_BLOCK_BUTTON_TEXT = 'Copy Code Block';
+
+const CA_COPY_OPEN_EXAMPLE_COMMAND_TEXT = 'Copy openExample Command';
+
+const CA_OPEN_EXAMPLE_COMMAND_INSTRUCTION = 'Paste command in MATLAB to download and open example files';
+
+const CA_COPY_CODE_BLOCK_CONFIRMATION_TOOLTIP = 'Copied!';
+
+const CA_COPY_OPEN_EXAMPLE_COMMAND_CONFIRMATION_TOOLTIP ='Copied!';
+
+const CA_TEMPLATE = '<div class="btn-group code_actions"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="copy_code_popover_target"><span class="icon-copy"></span> ' + CA_GET_DROP_DOWN_TEXT + ' <span class="caret"></span></span></button><ul class="dropdown-menu dropdown-menu-right copy_code"></ui></div>';
+
+const CA_COPY_CODE_BLOCK_TEMPLATE = '<li class="copy_code_block"><button><span class="icon-copy"></span> ' + CA_COPY_CODE_BLOCK_BUTTON_TEXT + '</button></li>';
+
+const CA_COPY_OPEN_EXAMPLE_COMMAND_TEMPLATE = '<li role="separator" aria-hidden="true" class="divider"></li><li class="copy_code_openexample"><p><span class="icon-webinar"></span> ' + CA_COPY_OPEN_EXAMPLE_COMMAND_TEXT + '<br><small>' + CA_OPEN_EXAMPLE_COMMAND_INSTRUCTION + '</small></p><div role="presentation" class="input-group"><input type="text" class="form-control" readonly/><span class="input-group-btn"><button class="btn btn_color_blue" type="button"><span class="icon-copy"><span class="sr-only">Copy</span></span></button></span></div></li>';
+
+$(document).ready(function () {
+    registerMatlabCommandDialogAction();
+    registerOpenExampleAction();
+});
+
+function registerOpenExampleAction() {
+  $.getScript('/help/basecodes.js', function(data, textStatus, jqxhr) {
+      if (jqxhr.status === 200) {
+          _updateOpenExampleButtons();
+      }
+  });
+}
+
+function _updateOpenExampleButtons() {
+    if (typeof BaseCodeMap === 'function') {
+        let baseCodeMap = new BaseCodeMap();
+        let helpPath = document.location.pathname.split('/');  // get shortname based on current doc page Url
+        if (helpPath.length >= 3) {
+            let currentShortName = helpPath[2];
+            if (document.location.pathname.indexOf('/help/releases/') != -1) { // archived documentation
+                currentShortName = helpPath[4];
+            }
+            
+            let mappedBasedCode = "";
+
+            for (const basecode in baseCodeMap.simple) {
+                if (baseCodeMap.simple[basecode].includes(currentShortName)) { // convert to basecode based on shortname
+                    mappedBasedCode = basecode;
+                }
+            }
+
+            if (mappedBasedCode && window.ow !== undefined && ow.isProductSupported !== undefined) {
+                ow.isProductSupported([mappedBasedCode]).then(function (data) {
+                    let openExampleButtons = $('.examples_short_list a[href^="matlab:"]').not('.example_product_list a[href^="matlab:"]'); // Added ".not()" because of g2443731
+					if (!data.exists) {
+                        // reset all the button...
+                        $.each(openExampleButtons, function (i) {
+							let ca_codeInputBlocks = $(this).closest('.examples_short_list').parent().find('.code_responsive div[class="codeinput"]');
+							let newLink = new OpenExampleLink($(this));
+							newLink.createCopyButton();
+							let ca_MatLabcommand = newLink.returnMatlabCommand();
+							$.each(ca_codeInputBlocks, function (j) {
+								let ca_newDropDown = new ca_dropDown($(this),i,j);
+								ca_newDropDown.ca_create_template();
+								ca_newDropDown.ca_createCopyCodeBlockTemplate();
+								ca_newDropDown.ca_createCopyOpenExampleCommandTemplate(ca_MatLabcommand);
+							});
+						});
+					    return; // do nothing is product not support
+					}
+					
+					// update earch example button based on the return status.
+					$.each(openExampleButtons, function (i) {
+						let ca_codeInputBlocks = $(this).closest('.examples_short_list').parent().find('.code_responsive div[class="codeinput"]');
+						let ca_openExampleButtonParentDiv = ($(this)).parent();
+						let newLink = new OpenExampleLink($(this));
+						newLink.createCopyButton();
+						let ca_MatLabcommand = newLink.returnMatlabCommand();
+						let ca_isModel = newLink.returnIsModel();
+						let ca_isLiveScript = newLink.returnIsLiveScript();
+						let isButton = true;
+						createOpenExampleButton(ca_MatLabcommand,ca_isModel,ca_isLiveScript,ca_openExampleButtonParentDiv,isButton);
+						$.each(ca_codeInputBlocks, function (j) {
+						    let ca_newDropDown = new ca_dropDown($(this),i,j);
+							isButton = false;
+							ca_newDropDown.ca_create_template();
+							ca_newDropDown.ca_createCopyCodeBlockTemplate();
+							ca_newDropDown.ca_createCopyOpenExampleCommandTemplate(ca_MatLabcommand);
+							let ca_openExampleLinkParentDiv = ($(this)).find('.copy_code');
+							createOpenExampleButton(ca_MatLabcommand,ca_isModel,ca_isLiveScript,ca_openExampleLinkParentDiv,isButton);
+						});
+					});					
+                });
+            } else {
+                // reset all the button...
+                let openExampleButtons = $('.examples_short_list a[href^="matlab:"]').not('.example_product_list a[href^="matlab:"]'); // Added ".not()" because of g2443731
+				
+				// update each example button based on the return status.
+				$.each(openExampleButtons, function (i) {
+					let ca_codeInputBlocks = $(this).closest('.examples_short_list').parent().find('.code_responsive div[class="codeinput"]')
+					let newLink = new OpenExampleLink($(this));
+					newLink.createCopyButton();
+					let ca_MatLabcommand = newLink.returnMatlabCommand();
+					$.each(ca_codeInputBlocks, function (j) {
+						let ca_newDropDown = new ca_dropDown($(this),i,j);
+						ca_newDropDown.ca_create_template();
+						ca_newDropDown.ca_createCopyCodeBlockTemplate();
+						ca_newDropDown.ca_createCopyOpenExampleCommandTemplate(ca_MatLabcommand);
+					});
+				});
+			}
+		}
+    }
+}
+
+const copyButtonTemplate = '<button type="button" class="btn companion_btn btn_color_blue btn-block copy_cmd_btn" data-toggle="popover" data-placement="bottom" data-trigger="hover focus" title="" data-html="true" data-content="" data-original-title="MATLAB Command"><span class="icon-mw-copy"><span class="sr-only">Copy Code</span></span>&nbsp; Copy Command</button>';
+
+class ca_dropDown {
+	
+	constructor(dropDown,i,j){
+		this.ca_codeResponsive = dropDown.closest('.code_responsive');
+		this.ca_codeResponsive.addClass('-has_code_copy');
+		this.codeInput = dropDown;
+		this.ca_id = i.toString() + j.toString(); 
+		this.ca_getSpanId = 'copy_popover_' + this.ca_id;
+		this.ca_codeBlock = dropDown.find('pre');
+	}
+	
+	ca_create_template(){
+		let ca_cmdTemplate = $(CA_TEMPLATE);
+		ca_cmdTemplate.find('span').attr('id',this.ca_getSpanId);
+		this.codeInput.prepend(ca_cmdTemplate);
+	}
+	
+	ca_createCopyCodeBlockTemplate(){
+		let ca_cmdCopyCodeBlockTemplate = $(CA_COPY_CODE_BLOCK_TEMPLATE);
+		let ca_copyCodeBlockButton = ca_cmdCopyCodeBlockTemplate.find('button');
+		let ca_buttonId = 'copyBlock' + this.ca_id; 
+		let ca_localCodeResponsive = this.ca_codeResponsive;
+		let ca_localGetSpanId = this.ca_getSpanId;
+		let ca_localCodeBlock = this.ca_codeBlock;
+		ca_copyCodeBlockButton.attr('id',ca_buttonId);
+		this.codeInput.find('.copy_code').append(ca_cmdCopyCodeBlockTemplate);
+		ca_copyCodeBlockButton.click(function(){
+			navigator.clipboard.writeText(ca_localCodeBlock.text());
+			ca_localCodeResponsive.addClass('-code_copied');
+			$('#' + ca_localGetSpanId).tooltip({title:CA_COPY_CODE_BLOCK_CONFIRMATION_TOOLTIP}).tooltip('show');
+			setTimeout(function(){
+				$('#' + ca_localGetSpanId).tooltip('destroy');
+				ca_localCodeResponsive.removeClass('-code_copied');
+			},750);
+		});
+	}
+	
+	ca_createCopyOpenExampleCommandTemplate(ca_MatLabcommand){
+		let ca_cmdCopyOpenExampleCommandTemplate = $(CA_COPY_OPEN_EXAMPLE_COMMAND_TEMPLATE);
+		let ca_copyCommandButton = ca_cmdCopyOpenExampleCommandTemplate.find('button');
+		let ca_buttonId = 'copyCommand' + this.ca_id;
+		let ca_localGetSpanId = this.ca_getSpanId;
+		ca_copyCommandButton.attr('id',ca_buttonId);
+		ca_cmdCopyOpenExampleCommandTemplate.find('input').attr('value', ca_MatLabcommand);
+		this.codeInput.find('.copy_code').append(ca_cmdCopyOpenExampleCommandTemplate);
+		ca_copyCommandButton.click(function(){
+			navigator.clipboard.writeText(ca_MatLabcommand);
+			$('#' + ca_localGetSpanId).tooltip({title:CA_COPY_OPEN_EXAMPLE_COMMAND_CONFIRMATION_TOOLTIP}).tooltip('show');
+			setTimeout(function () {
+				$('#' + ca_localGetSpanId).tooltip('destroy');
+			}, 750);
+		});
+	}
+}
+
+class OpenExampleLink {
+    
+    constructor(openLink) {
+        let href = openLink.attr('href');
+        this.matlabCommand = getMatlabCommand(href);
+        let dataAttr = openLink.attr('data-ex-genre');
+        this.isLiveScript = dataAttr && dataAttr == 'Live Script';
+        this.isModel = dataAttr && dataAttr == 'Model';
+        
+        this.parentDiv = openLink.parent();
+        this.parentDiv.addClass('open_example_div');
+        openLink.remove();
+    }
+	
+	returnMatlabCommand(){
+		return this.matlabCommand;
+	}
+	
+	returnIsModel(){
+		return this.isModel;
+	}
+	
+	returnIsLiveScript(){
+		return this.isLiveScript;
+	}
+    
+    createCopyButton() {
+        let cmdBtn = $(copyButtonTemplate);
+        let decodedCmd = decodeURIComponent(this.matlabCommand);
+        cmdBtn.attr('data-content', '<code>' + decodedCmd + '</code>');
+        this.parentDiv.append(cmdBtn);
+        cmdBtn.popover();
+        cmdBtn.click(handleExampleCommandClick);
+    }
+    
+    
+}
+
+function createOpenExampleButton(ca_MatLabcommand,ca_isModel,ca_isLiveScript, ca_parentDiv,isButton) {
+	let openWithCommand = getOpenWithCommand(ca_MatLabcommand);
+	let openWithLabel = new getOpenWithLabel(ca_isModel);
+	let openWithLabelStr = openWithLabel.getString();
+	let openWithLabelStatus = openWithLabel.getStatus();
+        
+        // In the following scenarios, don't show the "Open ..." button:
+        // - This example doesn't use openExample.
+        // - User isn't logged in & licensed to use MO, and this example isn't in a supported product in the Prod04 stack (g2633786);
+        // - User isn't logged in & licensed to use MO, and this isn't a Live Script example.
+        
+        // Below, using openWithLabelStatus as a proxy to tell whether user is logged in & licensed, and if yes, whether it's a model.
+        // The getOpenWithLabel function is defined in openInMO.js and openInBrowser.js, which are both included in ../html/open_with.html.
+        // In this HTML there is the FreeMarker code that figures out whether user is logged in & licensed to use MO.
+		if (!openWithCommand || (openWithLabelStatus == 'user_not_licensed' && !ca_isLiveScript)) {
+			return;
+		}
+        
+        const notSupportedByProd04 = new Set(['5g', 'audio', 'lte', 'parallel', 'sdl', 'simscape', 'sps', 'rfpcb', 'satcom', 'slcontrol', 'sldo', 'stateflow', 'systemcomposer', 'uav', 'wlan']);
+        
+        const notSupportedSharedExStrings = ["5g_", "_5g", "audio_", "_audio", "lte_", "_lte", "parallel_", "_parallel", "sdl_", "_sdl", "simscape_", "_simscape", "sps_", "_sps", "rfpcb_", "_rfpcb", "satcom_", "_satcom", "slcontrol_", "_slcontrol", "sldo_", "_sldo", "stateflow_", "_stateflow", "systemcomposer_", "_systemcomposer", "uav_", "_uav", "wlan_", "_wlan"];
+        
+        let splitCmd = openWithCommand.split("/");
+        let component = splitCmd[0];
+        
+        if (openWithLabelStatus == 'user_not_licensed') {
+            if (notSupportedByProd04.has(component)) {
+                return;
+            }
+            if (notSupportedSharedExStrings.some(function(v) {return component.indexOf(v) >= 0; })) {
+                return;
+            }
+        }
+        
+        // If user isn't logged in & licensed to use MO, and this is a Live Script example in a supported product in MO: display the "Try This Example" button.
+        
+        // If user is logged in & licensed to use MO, and this is an example in a supported product in MO: 
+        // - If it is a model that uses openExample, then display the "Open in Simulink Online" button;
+        // - If it isn't a model, then display the "Open in MATLAB Online" button.
+        
+        
+        let exampleName = splitCmd[1];
+        let config = getOpenWithConfig(component, exampleName);
+        let containerOptions = getOpenWithContainerOptions();
+        let matlabLink = $('a[href="matlab:openExample(\'' + openWithCommand + '\')"]');
+		let dropDown;
+		if(isButton){
+			dropDown = $('<button class="btn btn_color_blue btn-block add_margin_10 analyticsOpenWith">' + openWithLabelStr + '</button>');
+			ca_parentDiv.prepend(dropDown);
+		}
+		else{
+			dropDown = $('<li role="separator" aria-hidden="true" class="divider"></li><li><a href="..."><span class="icon-app"></span>' + openWithLabelStr + '</a></li>');
+			ca_parentDiv.append(dropDown);
+		}
+		
+		$(dropDown).on('click', function (e) {
+			e.preventDefault();
+			ow.load(config, containerOptions);
+		});
+		matlabLink.css('display', 'inline-block');
+}
+
+function addOpenExampleLinkClickHandler(link) {
+    $(link).on('click', function(e) {
+        e.preventDefault();
+        let href = $(this).attr('href');
+        let matlabCommand = getMatlabCommand(href);
+        showMatlabDialog(matlabCommand);
+    });
+
+}
+
+
+$(window).on('popover_added', function() {
+    $(document).on("click", ".no-matlab", function(e) {
+        e.preventDefault();
+        let href = $(this).attr('href');
+        let matlabCommand = getMatlabCommand(href);
+    showMatlabDialog(matlabCommand);
+    });   
+}); 
+
+
+$(window).bind('examples_cards_added', function(e) {
+    $('.card_container a[href^="matlab:"]').hide();
+});
+
+function registerMatlabCommandDialogAction() {
+    $('a[href^="matlab:"]').not('.card_container a[href^="matlab:"], .examples_short_list a.btn[href^="matlab:"]').on('click', function (e) {
+        e.preventDefault();
+        let href = $(this).attr('href');
+        let matlabCommand = getMatlabCommand(href);
+        showMatlabDialog(matlabCommand);
+    });
+}
+
+function getMatlabCommand(href) {
+    let matlabCommand = null;
+    let match = href.match(/matlab:(.*)/);
+    if (match) {
+        matlabCommand = match[1];
+    }
+    return matlabCommand;
+}
+
+function getOpenWithCommand(matlabCommand) {
+    let openWithCommand = null;
+    let match = matlabCommand.match(/openExample\('(.*)'\)/);
+    if (match) {
+        openWithCommand = match[1];
+    }
+    return openWithCommand;
+}
+
+function showMatlabDialog(matlabCommand) {
+    if (matlabCommand) {
+        matlabCommand = decodeURIComponent(matlabCommand);
+        $("#matlab-command-dialog #dialog-body #dialog-matlab-command").text(matlabCommand);
+    } else {
+        $("#matlab-command-dialog #dialog-body #dialog-matlab-command").hide();
+    }
+    $("#matlab-command-dialog").modal();
+}
+
+function handleExampleCommandClick(evt) {
+    const elt = evt.target.closest('button.btn_color_blue');
+    
+    const popoverId = elt.getAttribute('aria-describedby');
+    const popover = document.getElementById(popoverId);
+    if (popover) {
+        const contentElt = popover.querySelector('.popover-content');
+        const textToCopy = contentElt.textContent;
+        const n = contentElt.getBoundingClientRect().top + window.scrollY
+        
+        // By default the copy_to_clipboard function will close the popover when it
+        // selects the text to copy, so temporarily reject the hide popover event.
+        $(elt).on('hide.bs.popover', keepPopoverOpen);
+        if (copy_to_clipboard(textToCopy, n)) {
+            contentElt.classList.add('open_example_highlight');
+            const copiedElt = createCopiedTextElt(popover);
+            if (copiedElt) {
+                // Clean up when the popover closes.
+                $(elt).one('hide.bs.popover', function() {
+                    contentElt.classList.remove('open_example_highlight');
+                    copiedElt.remove();
+                });
+            }
+        }
+        $(elt).off('hide.bs.popover', keepPopoverOpen);
+    }
+}
+
+function keepPopoverOpen(evt) {
+    evt.preventDefault();
+    return false;
+}
+
+function createCopiedTextElt(popoverElt) {
+    let copiedTextElt = popoverElt.querySelector('.copied_message');
+    if (copiedTextElt) {
+        // The Copied! indicator already exists.
+        return null;
+    }
+    const copiedElt = document.createElement('div');
+    copiedElt.classList.add('copied_message');
+    copiedElt.style.float = 'right';
+    copiedElt.innerHTML = 'Copied!';
+    popoverElt.querySelector('.popover-title').appendChild(copiedElt);
+    return copiedElt;
+}
+
+function copy_to_clipboard(text, n) {
+  let res;
+  if (window.clipboardData) { 
+    // For IE
+    text = text.replace(/(\r\n)+/g, "\r\n");
+    res = window.clipboardData.setData('Text', text);
+    return res;
+  } else {
+    let textArea = document.createElement("textarea");
+    textArea.value = text; // For Edge to not shift focus away
+
+    textArea.setAttribute("readonly", "");
+    textArea.style.top = n + "px";
+    textArea.style.margin = "0";
+    textArea.style.padding = "0";
+    textArea.style.position = "absolute";
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      res = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      return res;
+    } catch (err) {
+      document.body.removeChild(textArea);
+      return false;
+    }
+  }
+}
